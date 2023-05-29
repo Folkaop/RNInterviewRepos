@@ -1,20 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import AboutScreen from "./src/screens/about/AboutScreen";
+import QuotesScreen from "./src/screens/quotes/QuotesScreen";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const Tab = createBottomTabNavigator();
+
+const App = () => (
+    <NavigationContainer>
+        <Tab.Navigator
+            screenOptions={{
+                tabBarActiveTintColor: 'tomato',
+                tabBarInactiveTintColor: 'gray',
+                tabBarStyle: {
+                    borderTopWidth: 1,
+                    borderTopColor: 'black'
+                },
+                tabBarLabelStyle: {
+                    fontSize: 14
+                }
+            }}
+        >
+            <Tab.Screen
+                name="About"
+                component={AboutScreen}
+                options={{
+                    tabBarLabel: 'About',
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons name="tree" size={24} color={color} />
+                    )
+                }}
+            />
+            <Tab.Screen
+                name="Quotes"
+                component={QuotesScreen}
+                options={{
+                    tabBarLabel: 'Quotes',
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons name="bug" size={24} color={color} />
+                    )
+                }}
+            />
+        </Tab.Navigator>
+    </NavigationContainer>
+);
+
+export default App;
